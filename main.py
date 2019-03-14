@@ -35,6 +35,38 @@ class CsvManager:
                 return {"status":True, "data":record}
         return {"status":False, "data":None}
 
+    def getById(self):
+        """
+        Busca un registro a travez de su ID
+        """
+        id = input("Ingrese id a buscar: ")
+        print("{:<5}{:<20}{:<20}{:<5}".format("Id","Nombre","Apellido","Edad"))
+        for record in self.data:
+            if id == record["ID"]:
+                print("{:<5}{:<20}{:<20}{:<5}".format(record["ID"],record["nombre"],record["apellido"],record["edad"]))
+
+
+    def getByNombre(self):
+        """
+        Busca un registro a travez de su ID
+        """
+        nombre = input("Ingrese nombre a buscar: ")
+        print("{:<5}{:<20}{:<20}{:<5}".format("Id","Nombre","Apellido","Edad"))
+        for record in self.data:
+            if nombre == record["nombre"]:
+                print("{:<5}{:<20}{:<20}{:<5}".format(record["ID"],record["nombre"],record["apellido"],record["edad"]))
+
+    def getByApellido(self):
+        """
+        Busca un registro a travez de su ID
+        """
+        apellido = input("Ingrese apellido a buscar: ")
+        print("{:<5}{:<20}{:<20}{:<5}".format("Id","Nombre","Apellido","Edad"))
+        for record in self.data:
+            if apellido == record["apellido"]:
+                print("{:<5}{:<20}{:<20}{:<5}".format(record["ID"],record["nombre"],record["apellido"],record["edad"]))
+
+
     def printData(self):
         """
         Imprime por consola todos los registros del arvhivo csv
@@ -151,7 +183,7 @@ else:
     c = CsvManager()
     opc = 0
 
-    while (opc != '9'):
+    while (opc != '12'):
         print("\nMENU\n")
         print("1. Ver data")
         print("2. Crear registro")
@@ -161,9 +193,13 @@ else:
         print("6. Ordenar por nombre")
         print("7. Ordenar por apellido")
         print("8. Guardar")
-        print("9. Salir")
+        print("9. Buscar por id")
+        print("10. Buscar por nombre")
+        print("11. Buscar por apellido")
+        print("12. Salir")
 
         opc = input("Seleccione una opcion: ")
+        print("\n")
         if(opc == "1"):
             c.printData()
         elif(opc == "2"):
@@ -181,6 +217,12 @@ else:
         elif(opc == "8"):
             c.save()
         elif(opc == "9"):
+            c.getById()
+        elif(opc == "10"):
+            c.getByNombre()
+        elif(opc == "11"):
+            c.getByApellido()
+        elif(opc == "12"):
             print("Adios")
         else:
             print("Opcion incorrecta\n")

@@ -7,7 +7,7 @@ class CsvManager:
         del archivo csv en un diccionario para poder manejarlo facilmente
         """
         self.data = []
-        with open('data.csv') as File:
+        with open('data2.csv') as File:
             reader = csv.DictReader(File)
             for row in reader:
                 self.data.append(row)
@@ -17,7 +17,7 @@ class CsvManager:
         Esta funcion se encarga de guardar en el archivo csv la data modificada
         """
         with open('data.csv', 'w') as File:
-            fieldnames = ['ID', 'nombre', 'apellido','edad']
+            fieldnames = ['nombre', 'ci', 'edad','estado', 'nacionalidad', 'hora', 'fecha']
             writer = csv.DictWriter(File, fieldnames=fieldnames)
         
             writer.writeheader()
@@ -31,7 +31,7 @@ class CsvManager:
         Busca un registro a travez de su ID
         """
         for record in self.data:
-            if id == record["ID"]:
+            if id == record["ci"]:
                 return {"status":True, "data":record}
         return {"status":False, "data":None}
 
@@ -40,10 +40,10 @@ class CsvManager:
         Busca un registro a travez de su ID
         """
         id = input("Ingrese id a buscar: ")
-        print("{:<5}{:<20}{:<20}{:<5}".format("Id","Nombre","Apellido","Edad"))
+        print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(['nombre', 'ci', 'edad','estado', 'nacionalidad', 'hora', 'fecha']))
         for record in self.data:
             if id == record["ID"]:
-                print("{:<5}{:<20}{:<20}{:<5}".format(record["ID"],record["nombre"],record["apellido"],record["edad"]))
+                print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(record["nombre"],record["ci"],record["edad"],record["estado"],record["nacionalidad"],record["hora"],record["fecha"]))
 
 
     def getByNombre(self):
@@ -51,40 +51,40 @@ class CsvManager:
         Busca un registro a travez de su ID
         """
         nombre = input("Ingrese nombre a buscar: ")
-        print("{:<5}{:<20}{:<20}{:<5}".format("Id","Nombre","Apellido","Edad"))
+        print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(['nombre', 'ci', 'edad','estado', 'nacionalidad', 'hora', 'fecha']))
         for record in self.data:
-            if nombre == record["nombre"]:
-                print("{:<5}{:<20}{:<20}{:<5}".format(record["ID"],record["nombre"],record["apellido"],record["edad"]))
+            if nombre in record["nombre"]:
+                print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(record["nombre"],record["ci"],record["edad"],record["estado"],record["nacionalidad"],record["hora"],record["fecha"]))
 
-    def getByApellido(self):
+    def getByNacionalidad(self):
         """
         Busca un registro a travez de su ID
         """
-        apellido = input("Ingrese apellido a buscar: ")
-        print("{:<5}{:<20}{:<20}{:<5}".format("Id","Nombre","Apellido","Edad"))
+        apellido = input("Ingrese nacionalidad a buscar: ")
+        print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(['nombre', 'ci', 'edad','estado', 'nacionalidad', 'hora', 'fecha']))
         for record in self.data:
-            if apellido == record["apellido"]:
-                print("{:<5}{:<20}{:<20}{:<5}".format(record["ID"],record["nombre"],record["apellido"],record["edad"]))
+            if apellido == record["nacionalidad"]:
+                print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(record["nombre"],record["ci"],record["edad"],record["estado"],record["nacionalidad"],record["hora"],record["fecha"]))
 
 
     def printData(self):
         """
         Imprime por consola todos los registros del arvhivo csv
         """
-        print("{:<5}{:<20}{:<20}{:<5}".format("Id","Nombre","Apellido","Edad"))
+        print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(['nombre', 'ci', 'edad','estado', 'nacionalidad', 'hora', 'fecha']))
         for record in self.data:
-            print("{:<5}{:<20}{:<20}{:<5}".format(record["ID"],record["nombre"],record["apellido"],record["edad"]))
+            print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(record["nombre"],record["ci"],record["edad"],record["estado"],record["nacionalidad"],record["hora"],record["fecha"]))
 
     def delete(self):
         """
         Eliminar un registro
         """
-        id = input("Ingrese id a eliminar: ")
+        id = input("Ingrese ci a eliminar: ")
         response = self.find(id)
         if response["status"]:
             result = []
             for record in self.data:
-                if record['ID'] != str(id):
+                if record['ci'] != str(id):
                     result.append(record)
             self.data = result
             print("Eliminacion exitosa")

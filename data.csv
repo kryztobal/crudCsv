@@ -1,16 +1,1 @@
-ID,nombre,apellido,edad
-1,juan,muñoz,12
-2,pedro,fernandez,23
-3,marcos,martinez,34
-4,manuel,figueroa,43
-5,julio,paredes,23
-6,fernando,solano,65
-7,carlos,leal,45
-8,jesus,avila,34
-9,cristobal,salazar,23
-10,juan,leal,47
-11,leo,solano,22
-12,gregorio,soliz,54
-13,luis,cabrera,34
-14,simon,marcano,56
-15,andres,nuñez,18
+nombre,ci,edad,estado,nacionalidad,hora,fecha

@@ -39,11 +39,12 @@ class CsvManager:
         """
         Busca un registro a travez de su ID
         """
-        id = input("Ingrese id a buscar: ")
-        print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(['nombre', 'ci', 'edad','estado', 'nacionalidad', 'hora', 'fecha']))
+        id = input("Ingrese ci a buscar: ")
+        print("|{:<32}|{:<10}|{:<5}|{:<15}|{:<20}|{:<15}|{:<15}".format('NOMBRE', 'CI', 'EDAD','ESTADO', 'NACIONALIDAD', 'HORA', 'FECHA'))
+        print("-------------------------------------------------------------------------------------------------------------------")
         for record in self.data:
-            if id == record["ID"]:
-                print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(record["nombre"],record["ci"],record["edad"],record["estado"],record["nacionalidad"],record["hora"],record["fecha"]))
+            if id == record["ci"]:
+                print("|{:<32}|{:<10}|{:<5}|{:<15}|{:<20}|{:<15}|{:<15}".format(record["nombre"],record["ci"],record["edad"],record["estado"],record["nacionalidad"],record["hora"],record["fecha"]))
 
 
     def getByNombre(self):
@@ -51,40 +52,43 @@ class CsvManager:
         Busca un registro a travez de su ID
         """
         nombre = input("Ingrese nombre a buscar: ")
-        print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(['nombre', 'ci', 'edad','estado', 'nacionalidad', 'hora', 'fecha']))
+        print("|{:<32}|{:<10}|{:<5}|{:<15}|{:<20}|{:<15}|{:<15}".format('NOMBRE', 'CI', 'EDAD','ESTADO', 'NACIONALIDAD', 'HORA', 'FECHA'))
+        print("-------------------------------------------------------------------------------------------------------------------")
         for record in self.data:
             if nombre in record["nombre"]:
-                print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(record["nombre"],record["ci"],record["edad"],record["estado"],record["nacionalidad"],record["hora"],record["fecha"]))
+                print("|{:<32}|{:<10}|{:<5}|{:<15}|{:<20}|{:<15}|{:<15}".format(record["nombre"],record["ci"],record["edad"],record["estado"],record["nacionalidad"],record["hora"],record["fecha"]))
 
     def getByNacionalidad(self):
         """
         Busca un registro a travez de su ID
         """
-        apellido = input("Ingrese nacionalidad a buscar: ")
-        print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(['nombre', 'ci', 'edad','estado', 'nacionalidad', 'hora', 'fecha']))
+        nacionalidad = input("Ingrese nacionalidad a buscar: ")
+        print("|{:<32}|{:<10}|{:<5}|{:<15}|{:<20}|{:<15}|{:<15}".format('NOMBRE', 'CI', 'EDAD','ESTADO', 'NACIONALIDAD', 'HORA', 'FECHA'))
+        print("-------------------------------------------------------------------------------------------------------------------")
         for record in self.data:
-            if apellido == record["nacionalidad"]:
-                print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(record["nombre"],record["ci"],record["edad"],record["estado"],record["nacionalidad"],record["hora"],record["fecha"]))
+            if nacionalidad in record["nacionalidad"]:
+                print("|{:<32}|{:<10}|{:<5}|{:<15}|{:<20}|{:<15}|{:<15}".format(record["nombre"],record["ci"],record["edad"],record["estado"],record["nacionalidad"],record["hora"],record["fecha"]))
 
 
     def printData(self):
         """
         Imprime por consola todos los registros del arvhivo csv
         """
-        print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(['nombre', 'ci', 'edad','estado', 'nacionalidad', 'hora', 'fecha']))
+        print("|{:<32}|{:<10}|{:<5}|{:<15}|{:<20}|{:<15}|{:<15}".format('NOMBRE', 'CI', 'EDAD','ESTADO', 'NACIONALIDAD', 'HORA', 'FECHA'))
+        print("-------------------------------------------------------------------------------------------------------------------")
         for record in self.data:
-            print("{:<60}{:<10}{:<5}{:<10}{:<10}{:<10}{:<10}".format(record["nombre"],record["ci"],record["edad"],record["estado"],record["nacionalidad"],record["hora"],record["fecha"]))
+            print("|{:<32}|{:<10}|{:<5}|{:<15}|{:<20}|{:<15}|{:<15}".format(record["nombre"],record["ci"],record["edad"],record["estado"],record["nacionalidad"],record["hora"],record["fecha"]))
 
     def delete(self):
         """
         Eliminar un registro
         """
-        id = input("Ingrese ci a eliminar: ")
-        response = self.find(id)
+        ci = input("Ingrese ci a eliminar: ")
+        response = self.find(ci)
         if response["status"]:
             result = []
             for record in self.data:
-                if record['ci'] != str(id):
+                if record['ci'] != str(ci):
                     result.append(record)
             self.data = result
             print("Eliminacion exitosa")
@@ -96,19 +100,21 @@ class CsvManager:
         Crear un registro
         """
         nombre = input("Ingrese nombre: ")
-        apellido = input("Ingrese apellido: ")
+        ci = input("Ingrese ci: ")
         edad = input("Ingrese edad: ")
-
-        lastIndex = 0
-        for record in self.data:
-            if lastIndex < int(record["ID"]):
-                lastIndex = int(record["ID"])
+        estado = input("Ingrese estado: ")
+        nacionalidad = input("Ingrese nacionalidad: ")
+        hora = input("Ingrese hora: ")
+        fecha = input("Ingrese fecha: ")
 
         newRecord = {
-            "ID":'{}'.format(lastIndex+1),
             "nombre":nombre,
-            "apellido":apellido,
-            "edad":edad
+            "ci":ci,
+            "edad":edad,
+            "estado":estado,
+            "nacionalidad":nacionalidad,
+            "hora":hora,
+            "fecha":fecha
         }
         self.data.append(newRecord)
         print("Creacion exitosa")
@@ -117,27 +123,36 @@ class CsvManager:
         """
         Actualizar un registro
         """
-        id = input("Ingrese id a modificar: ")
-        response = self.find(id)
+        ci = input("Ingrese ci a modificar: ")
+        response = self.find(ci)
         if response["status"]:
             response = response["data"]
             print("Se va a modificar: \n")
-            print("{:<5}{:<20}{:<20}{:<5}\n".format(response["ID"],response["nombre"],response["apellido"],response["edad"]))
-            
+            print("|{:<32}|{:<10}|{:<5}|{:<15}|{:<20}|{:<15}|{:<15}".format('NOMBRE', 'CI', 'EDAD','ESTADO', 'NACIONALIDAD', 'HORA', 'FECHA'))
+            print("-------------------------------------------------------------------------------------------------------------------")
+            print("|{:<32}|{:<10}|{:<5}|{:<15}|{:<20}|{:<15}|{:<15}".format(response["nombre"],response["ci"],response["edad"],response["estado"],response["nacionalidad"],response["hora"],response["fecha"]))
+
             nombre = input("Ingrese nombre: ")
-            apellido = input("Ingrese apellido: ")
             edad = input("Ingrese edad: ")
+            estado = input("Ingrese estado: ")
+            nacionalidad = input("Ingrese nacionalidad: ")
+            hora = input("Ingrese hora: ")
+            fecha = input("Ingrese fecha: ")
 
             newRecord = {
-                "ID":id,
                 "nombre":nombre,
-                "apellido":apellido,
-                "edad":edad
+                "ci":ci,
+                "edad":edad,
+                "estado":estado,
+                "nacionalidad":nacionalidad,
+                "hora":hora,
+                "fecha":fecha
             }
 
             data = []
+
             for record in self.data:
-                if record["ID"] == id:
+                if record["ci"] == ci:
                     data.append(newRecord)
                 else:
                     data.append(record)
@@ -151,7 +166,7 @@ class CsvManager:
         """
         Ordenar por ID
         """
-        newlist = sorted(self.data, key=lambda k: int(k['ID']))
+        newlist = sorted(self.data, key=lambda k: int(k['ci']))
         self.data = newlist
         self.printData()
 
@@ -163,18 +178,28 @@ class CsvManager:
         self.data = newlist
         self.printData()
 
-    def sortByApellido(self):
+    def sortByNacionalidad(self):
         """
-        Ordenar por apellido
+        Ordenar por nacionalidad
         """
-        newlist = sorted(self.data, key=lambda k:k['apellido'])
+        newlist = sorted(self.data, key=lambda k:k['nacionalidad'])
+        self.data = newlist
+        self.printData()
+    
+    def sortByEdad(self):
+        """
+        Ordenar por edad
+        """
+        newlist = sorted(self.data, key=lambda k:k['edad'])
         self.data = newlist
         self.printData()  
      
-print("Por favor logueese para ingresar al menu:\n") 
-user = input("Ingrese usuario: ")
-password = input("Ingrese contraseña: ")
+# print("Por favor logueese para ingresar al menu:\n") 
+# user = input("Ingrese usuario: ")
+# password = input("Ingrese contraseña: ")
 
+user = "admin"
+password = "admin"
 if(user != 'admin'):
     print("usuario incorrecto")
 elif(password != 'admin'):
@@ -191,11 +216,11 @@ else:
         print("4. Eliminar registro")
         print("5. Ordenar por id")
         print("6. Ordenar por nombre")
-        print("7. Ordenar por apellido")
+        print("7. Ordenar por nacionalidad")
         print("8. Guardar")
-        print("9. Buscar por id")
+        print("9. Buscar por ci")
         print("10. Buscar por nombre")
-        print("11. Buscar por apellido")
+        print("11. Buscar por nacionalidad")
         print("12. Salir")
 
         opc = input("Seleccione una opcion: ")
@@ -213,7 +238,7 @@ else:
         elif(opc == "6"):
             c.sortByNombre()
         elif(opc == "7"):
-            c.sortByApellido()
+            c.sortByNacionalidad()
         elif(opc == "8"):
             c.save()
         elif(opc == "9"):
@@ -221,7 +246,7 @@ else:
         elif(opc == "10"):
             c.getByNombre()
         elif(opc == "11"):
-            c.getByApellido()
+            c.getByNacionalidad()
         elif(opc == "12"):
             print("Adios")
         else:

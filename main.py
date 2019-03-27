@@ -7,10 +7,11 @@ class CsvManager:
         del archivo csv en un diccionario para poder manejarlo facilmente
         """
         self.data = []
-        with open('data2.csv') as File:
+        with open('data.csv') as File:
             reader = csv.DictReader(File)
             for row in reader:
                 self.data.append(row)
+                print(row)
 
     def save(self):
         """
@@ -194,12 +195,10 @@ class CsvManager:
         self.data = newlist
         self.printData()  
      
-# print("Por favor logueese para ingresar al menu:\n") 
-# user = input("Ingrese usuario: ")
-# password = input("Ingrese contraseña: ")
+print("Por favor logueese para ingresar al menu:\n") 
+user = input("Ingrese usuario: ")
+password = input("Ingrese contraseña: ")
 
-user = "admin"
-password = "admin"
 if(user != 'admin'):
     print("usuario incorrecto")
 elif(password != 'admin'):
